@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const Footer = () => {
   return (
     <Wrapper>
       <Container>
         <div>
-          SneakersShop <br />
-          2022 &copy; All Rights Reserved.
+          Drip Vault <br />
+          2025 &copy; All Rights Reserved.
         </div>
       </Container>
     </Wrapper>

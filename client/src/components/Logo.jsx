@@ -1,14 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
-import logo from '../assets/items/adidas_yeezy_700_wave_runner.png';
-import { Link } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import logo from "../assets/logo-navbar.png";
+import { Link } from "react-router-dom";
 const Logo = () => {
   return (
     <Wrapper>
-      <Image src={logo} />
-      <Title>
-        <Link to='/'>SneakersShop</Link>
-      </Title>
+      <Link to="/">
+        <Image src={logo} />
+      </Link>
     </Wrapper>
   );
 };

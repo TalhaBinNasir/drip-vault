@@ -1,16 +1,16 @@
-import connectDB from './db/connect.js';
-import User from './models/User.js';
-import 'dotenv/config';
-import { dummy_data } from './utils/dummy_data.js';
-import Product from './models/Product.js';
-import Cart from './models/Cart.js';
-import Order from './models/Order.js';
+import connectDB from "./db/connect.js";
+import User from "./models/User.js";
+import "dotenv/config";
+import { dummy_data } from "./utils/dummy_data.js";
+import Product from "./models/Product.js";
+import Cart from "./models/Cart.js";
+import Order from "./models/Order.js";
 
 const deleteUsers = async () => {
   await connectDB(process.env.MONGO_URI);
   try {
     await User.deleteMany();
-    console.log('Success');
+    console.log("Success");
     process.exit(0);
   } catch (error) {
     console.log(error);
@@ -19,7 +19,7 @@ const deleteUsers = async () => {
 };
 
 const insertProducts = async () => {
-  connectDB(process.env.MONGO_URI);
+  await connectDB(process.env.MONGO_URI);
 
   try {
     const sampleProducts = dummy_data.map((shoe) => {
@@ -27,7 +27,7 @@ const insertProducts = async () => {
     });
     await Product.deleteMany();
     await Product.insertMany(sampleProducts);
-    console.log('Success');
+    console.log("Success");
     process.exit(0);
   } catch (error) {
     console.log(error);
@@ -61,4 +61,4 @@ const deleteOrders = async () => {
 
 // deleteUsers();
 // deleteOrders();
-// insertProducts();
+insertProducts();

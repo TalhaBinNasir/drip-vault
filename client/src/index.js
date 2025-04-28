@@ -1,37 +1,37 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import { Provider } from 'react-redux';
-import { store } from './store';
-import { setContext } from '@apollo/client/link/context';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import { Provider } from "react-redux";
+import { store } from "./store";
+import { setContext } from "@apollo/client/link/context";
 import {
   ApolloProvider,
   InMemoryCache,
   ApolloClient,
   createHttpLink,
-} from '@apollo/client';
-import ScrollToTop from './components/ScrollToTop';
-import { BrowserRouter } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material';
+} from "@apollo/client";
+import ScrollToTop from "./components/ScrollToTop";
+import { BrowserRouter } from "react-router-dom";
+import { createTheme, ThemeProvider } from "@mui/material";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#584e44',
+      main: "#584e44",
     },
   },
 });
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: "http://localhost:8000/graphql",
 });
 
 const authLink = setContext(() => {
-  const token = localStorage.getItem('jwtToken');
+  const token = localStorage.getItem("jwtToken");
   return {
     headers: {
-      Authorization: token ? `Bearer ${token}` : '',
+      Authorization: token ? `Bearer ${token}` : "",
     },
   };
 });
@@ -49,7 +49,7 @@ const client = new ApolloClient({
   cache,
 });
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <ApolloProvider client={client}>

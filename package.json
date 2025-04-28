@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Online platform for buying and selling of hype sneakers",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build-client": "cd client && npm run build",
     "install-client": "cd client && npm install",
