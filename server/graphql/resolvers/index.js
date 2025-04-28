@@ -1,11 +1,11 @@
-import { cart } from './cartResolvers.js';
-import { order } from './orderResolvers.js';
-import { products } from './productResolvers.js';
-import { users } from './userResolvers.js';
-import GraphQLDateTime from 'graphql-iso-date';
+import { cart } from "./cartResolvers.js";
+import { order } from "./orderResolvers.js";
+import { products } from "./productResolvers.js";
+import { users } from "./userResolvers.js";
+import { DateTimeResolver } from "graphql-scalars";
 
 export default {
-  Date: GraphQLDateTime,
+  Date: DateTimeResolver,
   Query: {
     ...users.Query,
     ...products.Query,
