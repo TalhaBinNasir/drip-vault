@@ -1,20 +1,20 @@
-import { useMutation, useQuery } from '@apollo/client';
-import React from 'react';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import MuiError from '../assets/mui/Alert';
-import Loading from '../assets/mui/Loading';
-import { Navbar, OrderSum } from '../components';
-import CartItems from '../components/CartItems';
+import { useMutation, useQuery } from "@apollo/client";
+import React from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import MuiError from "../assets/mui/Alert";
+import Loading from "../assets/mui/Loading";
+import { OrderSum } from "../components";
+import CartItems from "../components/CartItems";
 
-import { CREATE_ORDER } from '../graphql/Mutations/orderMutation';
-import { GET_USER_CART } from '../graphql/Queries/cartQueries';
-import { GET_USER_ORDER } from '../graphql/Queries/orderQueries';
-import { GET_PRODUCTS } from '../graphql/Queries/productQueries';
-import { mobile } from '../responsive';
-import { validateShippingAddress } from '../utils/validators';
+import { CREATE_ORDER } from "../graphql/Mutations/orderMutation";
+import { GET_USER_CART } from "../graphql/Queries/cartQueries";
+import { GET_USER_ORDER } from "../graphql/Queries/orderQueries";
+import { GET_PRODUCTS } from "../graphql/Queries/productQueries";
+import { mobile } from "../responsive";
+import { validateShippingAddress } from "../utils/validators";
 
 const OrderPage = () => {
   const { userInfo, isLoading } = useSelector((state) => state.user);
@@ -55,13 +55,12 @@ const OrderPage = () => {
 
   useEffect(() => {
     if (data?.getUserCart.cartProducts.length < 1) {
-      navigate('/history');
+      navigate("/history");
     }
   }, [data?.getUserCart, navigate]);
 
   return (
-    <div className='section-center'>
-      <Navbar />
+    <div className="section-center">
       <Wrapper>
         {loading ? (
           <Loading />
@@ -69,13 +68,13 @@ const OrderPage = () => {
           <Loading />
         ) : orderError ? (
           <MuiError
-            type='error'
-            value={'Something went wrong, Please try again later..'}
+            type="error"
+            value={"Something went wrong, Please try again later.."}
           />
         ) : errorsLength > 0 ? (
           <ErrorContainer>
-            <MuiError type='error'>{errors.general}</MuiError>
-            <Link className='shipping_link' to='/shipping'>
+            <MuiError type="error">{errors.general}</MuiError>
+            <Link className="shipping_link" to="/shipping">
               <Button>Go to profile</Button>
             </Link>
           </ErrorContainer>
@@ -127,7 +126,7 @@ const Container = styled.div`
 const LoadingContainer = styled.div`
   display: flex;
   width: 100%;
-  ${mobile({ display: 'flex', flexDirection: 'column' })}
+  ${mobile({ display: "flex", flexDirection: "column" })}
 `;
 
 const OrderInfo = styled.div`
@@ -154,8 +153,8 @@ const CartContainer = styled.div`
     width: 2px;
   }
   ${mobile({
-    margin: '0 auto',
-    padding: '0',
+    margin: "0 auto",
+    padding: "0",
   })}
 `;
 
@@ -166,10 +165,10 @@ const OrderSummary = styled.div`
   padding: 6rem;
   flex-direction: column;
   ${mobile({
-    display: 'flex',
-    padding: '0',
-    justifyContent: 'center',
-    width: '100%',
+    display: "flex",
+    padding: "0",
+    justifyContent: "center",
+    width: "100%",
   })}
 `;
 const ErrorContainer = styled.div`

@@ -1,8 +1,8 @@
-import { Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import jwtDecode from 'jwt-decode';
-import { useQuery } from '@apollo/client';
+import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import jwtDecode from "jwt-decode";
+import { useQuery } from "@apollo/client";
 
 import {
   CartPage,
@@ -13,23 +13,28 @@ import {
   ProductPage,
   RegisterPage,
   ShopPage,
-} from './pages';
+} from "./pages";
 
-import { ProtectedProfileRoute, ProtectedRoute, Footer } from './components';
-import MobileMenu from './components/MoblieMenu';
+import {
+  ProtectedProfileRoute,
+  ProtectedRoute,
+  Footer,
+  Navbar,
+} from "./components";
+import MobileMenu from "./components/MoblieMenu";
 
 import {
   MainLayout,
   UserProfile,
   UserShipping,
   PurchaseHistory,
-} from './pages/UserDashboard';
+} from "./pages/UserDashboard";
 
-import { AdminLayout, EditItem, NewItem } from './pages/AdminDashboard';
-import { loginUser } from './features/userSlice';
-import { GET_USER_DETAILS } from './graphql/Queries/userQueries';
-import ProtectedAdminRoute from './components/ProtectedAdminRoute';
-import { useLogout } from './utils/customHooks';
+import { AdminLayout, EditItem, NewItem } from "./pages/AdminDashboard";
+import { loginUser } from "./features/userSlice";
+import { GET_USER_DETAILS } from "./graphql/Queries/userQueries";
+import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
+import { useLogout } from "./utils/customHooks";
 
 const App = () => {
   const { userInfo } = useSelector((state) => state.user);
@@ -40,11 +45,11 @@ const App = () => {
   const { handleLogout } = useLogout();
   const dispatch = useDispatch();
 
-  const token = localStorage.getItem('jwtToken');
+  const token = localStorage.getItem("jwtToken");
 
   useEffect(() => {
     if (token && jwtDecode(token)?.exp < Date.now() / 1000) {
-      localStorage.removeItem('jwtToken');
+      localStorage.removeItem("jwtToken");
       handleLogout();
     }
   }, [token, handleLogout]);
@@ -57,15 +62,16 @@ const App = () => {
 
   return (
     <>
+      <Navbar />
       <MobileMenu />
       <Routes>
-        <Route exact path='/' element={<HomePage />} />
-        <Route path='/shop' element={<ShopPage />} />
-        <Route path='/shop/:id' element={<ProductPage />} />
-        <Route path='/cart' element={<CartPage />} />
-        <Route path='*' element={<ErrorPage />} />
+        <Route exact path="/" element={<HomePage />} />
+        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/shop/:id" element={<ProductPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="*" element={<ErrorPage />} />
         <Route
-          path='/login'
+          path="/login"
           element={
             <ProtectedRoute>
               <LoginPage />
@@ -73,7 +79,7 @@ const App = () => {
           }
         />
         <Route
-          path='/register'
+          path="/register"
           element={
             <ProtectedRoute>
               <RegisterPage />
@@ -81,30 +87,30 @@ const App = () => {
           }
         />
         <Route
-          path='/'
+          path="/"
           element={
             <ProtectedProfileRoute>
               <MainLayout />
             </ProtectedProfileRoute>
           }
         >
-          <Route path='/profile' element={<UserProfile />} />
-          <Route path='/shipping' element={<UserShipping />} />
-          <Route path='/history' element={<PurchaseHistory />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/shipping" element={<UserShipping />} />
+          <Route path="/history" element={<PurchaseHistory />} />
         </Route>
         <Route
-          path='/'
+          path="/"
           element={
             <ProtectedAdminRoute>
               <AdminLayout />
             </ProtectedAdminRoute>
           }
         >
-          <Route path='/new-item' element={<NewItem />} />
-          <Route path='/edit-item' element={<EditItem />} />
+          <Route path="/new-item" element={<NewItem />} />
+          <Route path="/edit-item" element={<EditItem />} />
         </Route>
         <Route
-          path='/order/'
+          path="/order/"
           element={
             <ProtectedProfileRoute>
               <OrderPage />

@@ -1,17 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { Badge } from '@mui/material';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import UserMenu from '../assets/mui/UserMenu';
-import { mobile } from '../responsive';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Logo, SearchBar } from '../components';
-import { useSelector, useDispatch } from 'react-redux';
-import { GET_USER_CART } from '../graphql/Queries/cartQueries';
-import { useQuery } from '@apollo/client';
-import { toggleMobileMenu } from '../features/filterSlice';
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Badge } from "@mui/material";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import UserMenu from "../assets/mui/UserMenu";
+import { mobile } from "../responsive";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Logo, SearchBar } from "../components";
+import { useSelector, useDispatch } from "react-redux";
+import { GET_USER_CART } from "../graphql/Queries/cartQueries";
+import { useQuery } from "@apollo/client";
+import { toggleMobileMenu } from "../features/filterSlice";
 const Navbar = () => {
   const { userInfo } = useSelector((state) => state.user);
   const { data } = useQuery(GET_USER_CART, {
@@ -29,12 +29,12 @@ const Navbar = () => {
       <Logo />
       <LinkContainer>
         <NavLink>
-          <Link className='link' to='/'>
+          <Link className="link" to="/">
             Home
           </Link>
         </NavLink>
         <NavLink>
-          <Link className='link' to='/shop'>
+          <Link className="link" to="/shop">
             Shop
           </Link>
         </NavLink>
@@ -48,10 +48,10 @@ const Navbar = () => {
           <UserMenu />
         ) : (
           <Icon>
-            <Link to='/login'>
+            <Link to="/login">
               <UserLinks>
                 <PersonOutlineOutlinedIcon
-                  style={{ color: 'black', fontSize: '26px' }}
+                  style={{ color: "black", fontSize: "26px" }}
                 />
                 Sign in
               </UserLinks>
@@ -60,15 +60,15 @@ const Navbar = () => {
         )}
         {userInfo && (
           <UserLinks>
-            <Link to='/cart' style={{ color: 'var(--clr-mocha-2)' }}>
+            <Link to="/cart" style={{ color: "var(--clr-mocha-2)" }}>
               <Badge
-                sx={{ color: 'var(--clr-mocha)' }}
-                color='primary'
-                style={{ paddingRight: '10px', marginTop: '3px' }}
+                sx={{ color: "var(--clr-mocha)" }}
+                color="primary"
+                style={{ paddingRight: "10px", marginTop: "3px" }}
                 badgeContent={data?.getUserCart.cartProducts.length || 0}
               >
                 <Icon>
-                  <ShoppingCartOutlinedIcon style={{ color: 'black' }} />
+                  <ShoppingCartOutlinedIcon style={{ color: "black" }} />
                 </Icon>
                 Cart
               </Badge>
@@ -79,7 +79,7 @@ const Navbar = () => {
       <MobileMenu>
         <MenuIcon
           onClick={() => dispatch(toggleMobileMenu())}
-          style={{ cursor: 'pointer', fontSize: '36px' }}
+          style={{ cursor: "pointer", fontSize: "36px" }}
         />
       </MobileMenu>
     </Wrapper>
@@ -88,9 +88,16 @@ const Navbar = () => {
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 1rem;
   width: 100%;
-  border-bottom: 2px solid var(--clr-border);
+  padding: 0px 30px 5px 0px;
+  background: linear-gradient(
+    to bottom,
+    var(--clr-mocha-3) 85%,
+    var(--bgc-main) 100%
+  );
 `;
 
 const LinkContainer = styled.div`
@@ -98,7 +105,7 @@ const LinkContainer = styled.div`
   align-items: center;
   width: 30%;
   justify-content: center;
-  ${mobile({ display: 'none' })}
+  ${mobile({ display: "none" })}
 `;
 
 const NavLink = styled.p`
@@ -123,7 +130,7 @@ const UserContainer = styled.div`
   width: 35%;
   align-items: center;
   justify-content: flex-end;
-  ${mobile({ display: 'none' })}
+  ${mobile({ display: "none" })}
 `;
 const UserLinks = styled.div`
   display: flex;
@@ -150,16 +157,15 @@ const Icon = styled.div`
 const MobileMenu = styled.div`
   display: none;
   ${mobile({
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    display: "flex",
+    width: "100%",
+    justifyContent: "flex-end",
+    alignItems: "center",
   })}
 `;
 const SearchBarContainer = styled.div`
-  height: 0px;
   width: 30%;
   margin: 1rem;
-  ${mobile({ display: 'none' })}
+  ${mobile({ display: "none" })}
 `;
 export default Navbar;

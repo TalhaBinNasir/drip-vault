@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Navbar, Stars } from '../components';
-import { useMutation, useQuery } from '@apollo/client';
-import { GET_SINGLE_PRODUCT } from '../graphql/Queries/productQueries';
-import Loading from '../assets/mui/Loading';
-import MuiError from '../assets/mui/Alert';
-import styled from 'styled-components';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { ADD_TO_CART } from '../graphql/Mutations/cartMutations';
-import { useDispatch, useSelector } from 'react-redux';
-import { GET_USER_CART } from '../graphql/Queries/cartQueries';
-import { mobile } from '../responsive';
+import React, { useState } from "react";
+import { Stars } from "../components";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_SINGLE_PRODUCT } from "../graphql/Queries/productQueries";
+import Loading from "../assets/mui/Loading";
+import MuiError from "../assets/mui/Alert";
+import styled from "styled-components";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { ADD_TO_CART } from "../graphql/Mutations/cartMutations";
+import { useDispatch, useSelector } from "react-redux";
+import { GET_USER_CART } from "../graphql/Queries/cartQueries";
+import { mobile } from "../responsive";
 
 const ProductPage = () => {
-  const [product, setProduct] = useState('');
+  const [product, setProduct] = useState("");
   const [shoeSize, setShoeSize] = useState([]);
   const [success, setSuccess] = useState(false);
 
@@ -80,15 +80,14 @@ const ProductPage = () => {
   };
 
   return (
-    <Wrapper className='section-center'>
-      <Navbar />
-      <Link to='/shop'>
+    <Wrapper className="section-center">
+      <Link to="/shop">
         <Button>BACK TO PRODUCTS</Button>
       </Link>
       {loading ? (
         <Loading />
       ) : error ? (
-        <MuiError type='error' value={error.message} />
+        <MuiError type="error" value={error.message} />
       ) : (
         <ProductContainer>
           <ImageContainer>
@@ -105,7 +104,7 @@ const ProductPage = () => {
               praesentium sunt nesciunt.
             </Lorem>
             <Info>
-              Available:<span>{inStock ? 'In stock' : 'Out of stock'}</span>
+              Available:<span>{inStock ? "In stock" : "Out of stock"}</span>
             </Info>
             <Info>
               Brand:<span>{brand}</span>
@@ -120,7 +119,7 @@ const ProductPage = () => {
                 <SizeContainer>
                   {size?.map((size, index) => (
                     <SizeButton
-                      className={size === shoeSize ? 'active' : ''}
+                      className={size === shoeSize ? "active" : ""}
                       onClick={(e) => setShoeSize(Number(e.target.value))}
                       value={size}
                       key={index}
@@ -136,34 +135,34 @@ const ProductPage = () => {
                 </SizeContainer>
               </Info>
             ) : (
-              ''
+              ""
             )}
             <hr />
             <Button
-              className={`${inStock ? '' : 'btn-disabled'}`}
-              style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}
+              className={`${inStock ? "" : "btn-disabled"}`}
+              style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}
               disabled={cartLoading || !inStock}
               onClick={onClickHandler}
             >
-              {inStock ? 'ADD TO CART' : 'Out of stock'}
+              {inStock ? "ADD TO CART" : "Out of stock"}
             </Button>
 
             {cartLoading ? (
               <Loading />
             ) : cartError ? (
-              <MuiError type='error' width={'100%'} value={cartError.message} />
+              <MuiError type="error" width={"100%"} value={cartError.message} />
             ) : success ? (
-              <MuiError type='success'>
+              <MuiError type="success">
                 Item added to the cart!
                 <Link
-                  style={{ textDecoration: 'underline', margin: '0.5rem' }}
-                  to='/cart'
+                  style={{ textDecoration: "underline", margin: "0.5rem" }}
+                  to="/cart"
                 >
                   Visit cart
                 </Link>
               </MuiError>
             ) : (
-              ''
+              ""
             )}
           </InfoContainer>
         </ProductContainer>
@@ -210,7 +209,7 @@ const ImageContainer = styled.div`
 `;
 const Image = styled.img`
   width: 450px;
-  ${mobile({ width: '350px' })}
+  ${mobile({ width: "350px" })}
   margin-top: 4rem;
 `;
 const InfoContainer = styled.div`
@@ -222,7 +221,7 @@ const InfoContainer = styled.div`
 const Title = styled.h1`
   color: var(--clr-primary);
   font-size: 36px;
-  ${mobile({ fontSize: '24px' })}
+  ${mobile({ fontSize: "24px" })}
 `;
 
 const Price = styled.p`
@@ -233,7 +232,7 @@ const Price = styled.p`
 const Lorem = styled.p`
   letter-spacing: 1px;
   line-height: 1.5rem;
-  ${mobile({ marginBottom: '2rem' })}
+  ${mobile({ marginBottom: "2rem" })}
 `;
 
 const Info = styled.div`

@@ -21,12 +21,7 @@ const Wrapper = styled.div`
   min-width: 245px;
 `;
 
-const Title = styled.h2`
-  display: flex;
-  align-items: center;
-  padding-left: 5px;
-`;
 const Image = styled.img`
-  width: 7%;
-  min-width: 80px;
+  width: 150px;
+  min-width: 90px;
 `;

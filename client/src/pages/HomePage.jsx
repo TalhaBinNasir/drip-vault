@@ -1,10 +1,9 @@
-import React from 'react';
-import { About, Header, Navbar, TopPicks } from '../components';
+import React from "react";
+import { About, Header, TopPicks } from "../components";
 
 const HomePage = () => {
   return (
-    <main className='section-center'>
-      <Navbar />
+    <main className="section-center">
       <Header />
       <TopPicks />
       <About />

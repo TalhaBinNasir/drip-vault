@@ -1,15 +1,15 @@
-import { useQuery } from '@apollo/client';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import Loading from '../assets/mui/Loading';
-import { GET_USER_CART } from '../graphql/Queries/cartQueries';
+import { useQuery } from "@apollo/client";
+import React from "react";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import Loading from "../assets/mui/Loading";
+import { GET_USER_CART } from "../graphql/Queries/cartQueries";
 
-import { Navbar, OrderSum, TopPicks } from '../components';
-import CartItems from '../components/CartItems';
-import MuiError from '../assets/mui/Alert';
-import { mobile } from '../responsive';
+import { OrderSum, TopPicks } from "../components";
+import CartItems from "../components/CartItems";
+import MuiError from "../assets/mui/Alert";
+import { mobile } from "../responsive";
 
 const CartPage = () => {
   const { userInfo } = useSelector((state) => state.user);
@@ -20,32 +20,31 @@ const CartPage = () => {
   const cartLength = cartProducts?.length;
 
   return (
-    <div className='section-center'>
-      <Navbar />
+    <div className="section-center">
       <Wrapper>
         {loading ? (
           <Loading />
         ) : !cartLength ? (
-          <MuiError fontSize={'25px'} type='warning' className='warning'>
+          <MuiError fontSize={"25px"} type="warning" className="warning">
             Your cart is empty,
             <Link
-              style={{ textDecoration: 'underline', margin: '0.2rem' }}
-              to='/shop'
+              style={{ textDecoration: "underline", margin: "0.2rem" }}
+              to="/shop"
             >
               Fill it
             </Link>
           </MuiError>
         ) : error ? (
           <MuiError
-            type='error'
-            value={'Something went wrong.. Try again later.'}
+            type="error"
+            value={"Something went wrong.. Try again later."}
           />
         ) : (
-          <div className='container'>
+          <div className="container">
             <Container>
               <Header>
                 <Title>Your bag</Title>
-                <span style={{ color: 'var(--clr-gray)' }}>
+                <span style={{ color: "var(--clr-gray)" }}>
                   Totals: <TotalItems>{cartLength} items </TotalItems>
                 </span>
               </Header>
@@ -62,7 +61,7 @@ const CartPage = () => {
         )}
       </Wrapper>
 
-      <hr className='hr' />
+      <hr className="hr" />
       <TopPicks cartPage />
     </div>
   );
@@ -77,8 +76,8 @@ const Wrapper = styled.div`
     display: flex;
     width: 100%;
     ${mobile({
-      display: 'flex',
-      flexDirection: 'column',
+      display: "flex",
+      flexDirection: "column",
     })}
   }
 `;
@@ -109,8 +108,8 @@ const CartItemsContainer = styled.div`
     width: 2px;
   }
   ${mobile({
-    margin: '0 auto',
-    padding: '0',
+    margin: "0 auto",
+    padding: "0",
   })}
 `;
 
@@ -120,10 +119,10 @@ const OrderSummary = styled.div`
   align-items: center;
   padding: 6rem;
   ${mobile({
-    display: 'flex',
-    padding: '0',
-    justifyContent: 'center',
-    width: '100%',
+    display: "flex",
+    padding: "0",
+    justifyContent: "center",
+    width: "100%",
   })}
 `;
 

@@ -1,21 +1,20 @@
-import { useQuery } from '@apollo/client';
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useQuery } from "@apollo/client";
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
 import {
   BrandChart,
   ColorChart,
-  Navbar,
   PriceChart,
   ProductList,
   ShopHeader,
   SizeChart,
-} from '../components';
-import { GET_PRODUCTS_PAGINATION } from '../graphql/Queries/productQueries';
-import Loading from '../assets/mui/Loading';
-import MuiError from '../assets/mui/Alert';
-import { PaginationMUI } from '../assets/mui/PaginationMUI';
-import { mobile } from '../responsive';
+} from "../components";
+import { GET_PRODUCTS_PAGINATION } from "../graphql/Queries/productQueries";
+import Loading from "../assets/mui/Loading";
+import MuiError from "../assets/mui/Alert";
+import { PaginationMUI } from "../assets/mui/PaginationMUI";
+import { mobile } from "../responsive";
 
 const ShopPage = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -41,7 +40,7 @@ const ShopPage = () => {
         rates: filteredProducts?.rates,
       },
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
   });
 
   const products = data?.getProductsPagination?.products;
@@ -62,8 +61,7 @@ const ShopPage = () => {
   }, [size, brand, color, price.length]);
 
   return (
-    <div className='section-center'>
-      <Navbar />
+    <div className="section-center">
       <Container>
         <FilterWrapper>
           <h4>Filter</h4>
@@ -78,17 +76,17 @@ const ShopPage = () => {
             <Loading />
           ) : error ? (
             <MuiError
-              width='40%'
-              type='warning'
-              alignItems='center'
-              value={'Something went wrong.. Please try again later.'}
+              width="40%"
+              type="warning"
+              alignItems="center"
+              value={"Something went wrong.. Please try again later."}
             />
           ) : !loading && filteredProducts?.length < 1 ? (
             <MuiError
-              width='40%'
-              type='warning'
-              alignItems='center'
-              value={'No product is matching your result'}
+              width="40%"
+              type="warning"
+              alignItems="center"
+              value={"No product is matching your result"}
             />
           ) : (
             <div>
@@ -114,13 +112,13 @@ const Container = styled.div`
   width: 100%;
   min-width: 250px;
   display: flex;
-  ${mobile({ flexDirection: 'column' })}
+  ${mobile({ flexDirection: "column" })}
 `;
 const FilterWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 25%;
-  ${mobile({ minWidth: '350px' })}
+  ${mobile({ minWidth: "350px" })}
   min-width: 250px;
 `;
 
@@ -135,5 +133,5 @@ const PaginationContainer = styled.div`
   justify-content: center;
   margin-top: 1rem;
   margin-left: 10rem;
-  ${mobile({ margin: '0 auto' })}
+  ${mobile({ margin: "0 auto" })}
 `;
