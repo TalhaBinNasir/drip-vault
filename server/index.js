@@ -20,7 +20,10 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+
+app.options("/*", (_, res) => {
+  res.sendStatus(200);
+});
 
 const apolloServer = new ApolloServer({
   typeDefs,
