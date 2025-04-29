@@ -10,16 +10,14 @@ import { fileURLToPath } from "url";
 
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
 app.use(express.static(path.join(__dirname, "../client/build")));
 
-app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
-});
-// app.use(express.static('public'));
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+};
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
-// });
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
@@ -30,7 +28,7 @@ const PORT = process.env.PORT || 8000;
 
 const startServer = async () => {
   await apolloServer.start();
-  apolloServer.applyMiddleware({ app: app });
+  apolloServer.applyMiddleware({ app: app, cors: corsOptions });
   try {
     await connectDB(process.env.MONGO_URI);
     app.listen(PORT, () => console.log("Server is running"));
@@ -38,5 +36,9 @@ const startServer = async () => {
     throw new Error(error);
   }
 };
+
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+});
 
 startServer();
