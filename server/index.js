@@ -13,11 +13,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.static(path.join(__dirname, "../client/build")));
 
-const corsOptions = {
-  origin: process.env.CLIENT_URL,
-  credentials: true,
-};
-
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
@@ -28,7 +23,7 @@ const PORT = process.env.PORT || 8000;
 
 const startServer = async () => {
   await apolloServer.start();
-  apolloServer.applyMiddleware({ app: app, cors: corsOptions });
+  apolloServer.applyMiddleware({ app: app });
   try {
     await connectDB(process.env.MONGO_URI);
     app.listen(PORT, () => console.log("Server is running"));

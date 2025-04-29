@@ -10,7 +10,8 @@
     "render-postbuild": "npm run install-client && npm run build-client",
     "client": "npm start --prefix client",
     "server": "nodemon index",
-    "render-start": "cd server && node index.js"
+    "render-start": "cd server && node index.js",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
