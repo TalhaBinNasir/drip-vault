@@ -14,12 +14,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.static(path.join(__dirname, "../client/build")));
 
-const corsOptions = {
-  origin: process.env.CLIENT_URL,
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.options("/*", (_, res) => {
   res.sendStatus(200);
