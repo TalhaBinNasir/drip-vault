@@ -5,7 +5,6 @@ import cors from "cors";
 import { typeDefs } from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers/index.js";
 import connectDB from "./db/connect.js";
-
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -14,15 +13,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.static(path.join(__dirname, "../client/build")));
 
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+const corsOptions = {
+  origin: "https://drip-vault-fawn.vercel.app",
+  credentials: true,
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
 
-app.options("*", cors());
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 const apolloServer = new ApolloServer({
   typeDefs,
@@ -34,12 +33,13 @@ const PORT = process.env.PORT || 8000;
 
 const startServer = async () => {
   await apolloServer.start();
-  apolloServer.applyMiddleware({ app: app, cors: false });
+  apolloServer.applyMiddleware({ app, cors: false });
+
   try {
     await connectDB(process.env.MONGO_URI);
     app.listen(PORT, () => console.log("Server is running"));
   } catch (error) {
-    throw new Error(error);
+    console.error("Server failed to start", error);
   }
 };
 
