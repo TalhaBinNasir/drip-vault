@@ -14,11 +14,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.static(path.join(__dirname, "../client/build")));
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
-app.options("/*", (_, res) => {
-  res.sendStatus(200);
-});
+app.options("*", cors());
 
 const apolloServer = new ApolloServer({
   typeDefs,
