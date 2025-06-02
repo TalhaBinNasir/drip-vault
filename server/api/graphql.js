@@ -5,7 +5,7 @@ import resolvers from "../graphql/resolvers/index.js";
 import connectDB from "../db/connect.js";
 
 const cors = Cors({
-  origin: "*",
+  origin: CLIENT_URL,
   allowCredentials: true,
   allowMethods: ["POST", "GET", "OPTIONS"],
   allowHeaders: ["Content-Type", "Authorization"],
@@ -20,6 +20,8 @@ const apolloServer = new ApolloServer({
 });
 
 const startServer = apolloServer.start().then(() => {
+  console.log("graphql.js");
+
   const handler = apolloServer.createHandler({ path: "/api/graphql" });
 
   return async (req, res) => {

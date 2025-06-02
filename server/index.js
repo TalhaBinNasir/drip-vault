@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 8000;
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: CLIENT_URL,
     credentials: true,
   })
 );
@@ -24,6 +24,8 @@ app.use(
 app.use(express.static(path.join(__dirname, "../client/build")));
 
 const startServer = async () => {
+  console.log("index.js");
+
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
