@@ -1,49 +1,51 @@
-import { ApolloServer } from "apollo-server-express";
 import express from "express";
-import "dotenv/config";
+import { ApolloServer } from "apollo-server-express";
 import cors from "cors";
-import { typeDefs } from "./graphql/typeDefs.js";
-import resolvers from "./graphql/resolvers/index.js";
-import connectDB from "./db/connect.js";
+import "dotenv/config";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
-const app = express();
+import connectDB from "./db/connect.js";
+import { typeDefs } from "./graphql/typeDefs.js";
+import resolvers from "./graphql/resolvers/index.js";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
-app.use(express.static(path.join(__dirname, "../client/build")));
-
-const corsOptions = {
-  origin: "https://drip-vault-fawn.vercel.app",
-  credentials: true,
-  methods: ["GET", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
-
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
-
-const apolloServer = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: ({ req, res }) => ({ req, res }),
-});
+const app = express();
 
 const PORT = process.env.PORT || 8000;
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+
+app.use(express.static(path.join(__dirname, "../client/build")));
+
 const startServer = async () => {
+  const apolloServer = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ({ req, res }) => ({ req, res }),
+  });
+
   await apolloServer.start();
   apolloServer.applyMiddleware({ app, cors: false });
 
   try {
     await connectDB(process.env.MONGO_URI);
-    app.listen(PORT, () => console.log("Server is running"));
-  } catch (error) {
-    console.error("Server failed to start", error);
+    app.listen(PORT, () => {
+      console.log(
+        `🚀 Local server running at http://localhost:${PORT}${apolloServer.graphqlPath}`
+      );
+    });
+  } catch (err) {
+    console.error("❌ Failed to start server", err);
   }
 };
 
-app.get("*", function (req, res) {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build", "index.html"));
 });
 
